@@ -1,0 +1,14 @@
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/bin/Debug/net10.0/zoo-management-practice
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/bin/Debug/net10.0/zoo-management-practice.deps.json
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/bin/Debug/net10.0/zoo-management-practice.runtimeconfig.json
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/bin/Debug/net10.0/zoo-management-practice.dll
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/bin/Debug/net10.0/zoo-management-practice.pdb
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.GeneratedMSBuildEditorConfig.editorconfig
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.AssemblyInfoInputs.cache
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.AssemblyInfo.cs
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.csproj.CoreCompileInputs.cache
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.dll
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/refint/zoo-management-practice.dll
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.pdb
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/zoo-management-practice.genruntimeconfig.cache
+/Users/prashantkumar/Desktop/c# code/zoo-management-practice/obj/Debug/net10.0/ref/zoo-management-practice.dll
