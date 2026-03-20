@@ -1,16 +1,23 @@
-// using Microsoft.EntityFrameworkCore;
-// using ZooManagement.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using ZooManagement.DAL.Entities;
 
-// namespace ZooManagement.DAL.Data
-// {
-//     public class ZooDbContext : DbContext
-//     {
-//         public ZooDbContext(DbContextOptions<ZooDbContext> options) : base(options)
-//         {
+namespace ZooManagement.DAL.Data
+{
+    public class ZooDbContext : DbContext
+    {
+        public ZooDbContext(DbContextOptions options) : base(options)
+        {
             
-//         }  
+        }
 
-//         public DbSet<Animal> Animals {get; set;}
-//         public DbSet<Visitor> Visitors {get; set;}
-//     }    
-// }
+        public DbSet<Animal> Animals {get; set;}
+        public DbSet<Visitor> Visitors {get; set;}
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     // Configure your database connection string here
+        //     // For SQLite, the database file will be created in the project directory
+        //     optionsBuilder.UseSqlServer("Server=192.168.1.250,51434;Database=Prashant;User Id=Prashant;Password=Prashant;TrustServerCertificate=True;"); 
+        // }
+    }    
+}

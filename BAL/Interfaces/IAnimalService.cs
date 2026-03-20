@@ -6,8 +6,9 @@ namespace ZooManagement.BAL.Interfaces
     public interface IAnimalService
     {
         List<AnimalDto> GetAnimals();
-        // AnimalDto GetAnimal(int id);
+        AnimalDto GetAnimal(int id);
         void AddAnimal(AnimalDto animal);
-        // void DeleteAnimal(int id);
+        void UpdateAnimal(AnimalDto animal);
+        void DeleteAnimal(int id);
     }
 }
