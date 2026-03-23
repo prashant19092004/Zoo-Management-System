@@ -18,18 +18,21 @@ namespace ZooManagement
 
             var services = new ServiceCollection();
 
-            services.AddDbContext<ZooDbContext>(options => options.UseSqlServer("Server=192.168.1.250,51434;Database=Prashant;User Id=Prashant;Password=Prashant;TrustServerCertificate=True;"));
+            services.AddDbContext<ZooDbContext>();
 
             services.AddScoped<IAnimalRepository, AnimalRepository>();
+            services.AddScoped<IAttractionRepository, AttractionRepository>();
 
             services.AddScoped<IAnimalService, AnimalService>();
+            services.AddScoped<IAttractionService, AttractionService>();
 
             var provider = services.BuildServiceProvider();
 
             var animalService = provider.GetService<IAnimalService>();
+            var AttractionService = provider.GetService<IAttractionService>();
             
 
-            Home.HomePage(animalService);
+            Home.HomePage(animalService, AttractionService);
         }       
     }
 }

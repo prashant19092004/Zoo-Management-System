@@ -10,7 +10,7 @@ namespace ZooManagement.Presentation
 {
     public static class Home
     {
-        public static void HomePage(IAnimalService? service)
+        public static void HomePage(IAnimalService? animalService, IAttractionService? attractionService)
         {
             while(true)
             {
@@ -25,7 +25,7 @@ namespace ZooManagement.Presentation
                 switch (choice)
                 {
                     case(1): 
-                        AdminPage.AdminMenu(service);
+                        AdminPage.AdminMenu(animalService, attractionService);
                         break;
                     
                     case(2):

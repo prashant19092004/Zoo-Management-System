@@ -10,7 +10,7 @@ namespace ZooManagement.Presentation.Pages
 {
     public static class AdminPage
     {
-        public static void AdminMenu(IAnimalService? service)
+        public static void AdminMenu(IAnimalService? animalService, IAttractionService? attractionService)
         {
             while(true)
             {
@@ -30,11 +30,11 @@ namespace ZooManagement.Presentation.Pages
                 switch (choice)
                 {
                     case(1): 
-                        manageAttributeMenu();
+                        manageAttractionMenu(attractionService);
                         break;
                     
                     case(2):
-                        manageAnimalMenu(service);
+                        manageAnimalMenu(animalService);
                         break;
 
                     case(3):
@@ -69,7 +69,7 @@ namespace ZooManagement.Presentation.Pages
             }
         }
 
-        public static void manageAttributeMenu()
+        public static void manageAttractionMenu(IAttractionService? attractionService)
         {
             while(true)
             {
@@ -86,19 +86,96 @@ namespace ZooManagement.Presentation.Pages
                 switch (choice)
                 {
                     case(1): 
-                        Console.WriteLine("Add Attraction");
+                        if(attractionService != null)
+                        {
+                            Console.Write("Enter Attraction Name : ");
+                            string name = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter Attraction Description : ");
+                            string description = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter Attraction Price : ");
+                            int price = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            var attraction = new AttractionDto
+                            {
+                                Name = name,
+                                Description = description,
+                                Price = price
+                            };
+
+                            attractionService.AddAttraction(attraction);
+                            Console.WriteLine("Attraction added✅");
+                        }   
+                        else
+                        {
+                            Console.WriteLine("Attraction Service is not available");
+                        }
                         break;
                     
                     case(2):
-                        Console.WriteLine("View Attractions");
+                        if(attractionService != null)
+                        {
+                            var attractions = attractionService.GetAttractions();
+
+                            Console.WriteLine("------------Attractions--------------");
+
+                            foreach(var attraction in attractions)
+                            {
+                                Console.WriteLine($"{attraction.Name} - {attraction.Description} - {attraction.Price}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Attraction service is not available.");
+                        }
                         break;
 
                     case(3):
-                        Console.WriteLine("Modify Attraction");
+                        if(attractionService != null)
+                        {
+                            Console.Write("Enter the Attraction Id : ");
+                            int id = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            Console.Write("Enter the Attraction Name : ");
+                            string name = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter the Description : ");
+                            string description = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter the Attraction Price : ");
+                            int price = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            var attraction = new AttractionDto
+                            {
+                              Id = id,
+                              Name = name,
+                              Description = description,
+                              Price = price  
+                            };
+
+                            attractionService.UpdateAttraction(attraction);
+                            Console.WriteLine("Attraction is updated.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Attraction service is not available.");
+                        }
                         break;
                     
                     case(4): 
-                        Console.WriteLine("Remove Attraction");
+                        if(attractionService != null)
+                        {
+                            Console.Write("Enter the Attraction Id : ");
+                            int id = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            attractionService.DeleteAttraction(id);
+                            Console.WriteLine("Attraction is deleted.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Remove Attraction");
+                        }
                         break;
 
                     case(5):
@@ -112,7 +189,7 @@ namespace ZooManagement.Presentation.Pages
             }
         }
 
-        public static void manageAnimalMenu(IAnimalService? service)
+        public static void manageAnimalMenu(IAnimalService? animalService)
         {
             while(true)
             {
@@ -129,20 +206,20 @@ namespace ZooManagement.Presentation.Pages
                 switch (choice)
                 {
                     case(1):
-                        Console.Write("Enter Animal Name : ");
-                        string name = Console.ReadLine() ?? string.Empty;
-                        Console.Write("Enter Animal Type : ");
-                        string type = Console.ReadLine() ?? string.Empty;
-
-                        var animal = new AnimalDto
+                        if (animalService != null)
                         {
-                            Name = name,
-                            Type = type
-                        };
+                            Console.Write("Enter Animal Name : ");
+                            string name = Console.ReadLine() ?? string.Empty;
+                            Console.Write("Enter Animal Type : ");
+                            string type = Console.ReadLine() ?? string.Empty;
 
-                        if (service != null)
-                        {
-                            service.AddAnimal(animal);
+                            var animal = new AnimalDto
+                            {
+                                Name = name,
+                                Type = type
+                            };
+
+                            animalService.AddAnimal(animal);
                             Console.WriteLine("Animal Added✅");
                         }
                         else
@@ -153,25 +230,25 @@ namespace ZooManagement.Presentation.Pages
                         break;
                     
                     case(2):
-                        Console.Write("Enter the animal id : ");
-                        int id = Convert.ToInt32(Console.ReadLine() ?? "0");
-
-                        Console.Write("Enter Animal Name : ");
-                        string updatedName = Console.ReadLine() ?? string.Empty;
-
-                        Console.Write("Enter Animal Type : ");
-                        string updatedType = Console.ReadLine() ?? string.Empty;
-
-                        var updatedAnimal = new AnimalDto
+                        if(animalService != null)
                         {
-                            Id = id,
-                            Name = updatedName,
-                            Type = updatedType
-                        };
+                            Console.Write("Enter the animal id : ");
+                            int id = Convert.ToInt32(Console.ReadLine() ?? "0");
 
-                        if(service != null)
-                        {
-                            service.UpdateAnimal(updatedAnimal);
+                            Console.Write("Enter Animal Name : ");
+                            string updatedName = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter Animal Type : ");
+                            string updatedType = Console.ReadLine() ?? string.Empty;
+
+                            var updatedAnimal = new AnimalDto
+                            {
+                                Id = id,
+                                Name = updatedName,
+                                Type = updatedType
+                            };
+
+                            animalService.UpdateAnimal(updatedAnimal);
                             Console.WriteLine("Animal Updated..✅");
                         }
                         else
@@ -188,7 +265,7 @@ namespace ZooManagement.Presentation.Pages
 
                         if(removeId > 0)
                         {
-                            service?.DeleteAnimal(removeId);
+                            animalService?.DeleteAnimal(removeId);
                             Console.WriteLine("Animal Deleted..✅");
                         }
                         else
@@ -199,9 +276,9 @@ namespace ZooManagement.Presentation.Pages
 
                     case(4):
                     
-                        if (service != null)
+                        if (animalService != null)
                         {
-                            var animals = service.GetAnimals();
+                            var animals = animalService.GetAnimals();
 
                             Console.WriteLine("------ Animal List ------");
 
