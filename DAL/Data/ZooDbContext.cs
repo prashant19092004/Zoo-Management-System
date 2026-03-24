@@ -25,6 +25,7 @@ namespace ZooManagement.DAL.Data
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
         public DbSet<Attraction> Attractions { get; set; }
+        public DbSet<Discount> Discounts { get; set; }
 
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         // {

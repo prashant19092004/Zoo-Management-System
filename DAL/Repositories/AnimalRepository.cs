@@ -17,7 +17,18 @@ namespace ZooManagement.DAL.Repositories
 
         public List<Animal> GetAll()
         {    
-            return _context.Animals.ToList();
+            var animalQuery = from a in _context.Animals
+                            orderby a.Name
+                            select new Animal
+                            {
+                               Id = a.Id,
+                               Name = a.Name,
+                               Type = a.Type 
+                            };
+
+            List<Animal> animals = animalQuery.ToList();
+            
+            return animals;
         }
 
         public Animal GetById(int id)

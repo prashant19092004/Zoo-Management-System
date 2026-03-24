@@ -5,13 +5,33 @@ using ZooManagement.BAL.Interfaces;
 using ZooManagement.BAL.Services;
 using ZooManagement.DAL.Repositories;
 using ZooManagement.DAL.Entities;
+using ZooManagement.Utils;
 
 namespace ZooManagement.Presentation.Pages
 {
     public static class AdminPage
     {
-        public static void AdminMenu(IAnimalService? animalService, IAttractionService? attractionService)
+        public static void AdminMenu(IAnimalService? animalService, IAttractionService? attractionService, IDiscountService discountService)
         {
+            while(true)
+            {
+                Console.Write("Enter Admin Username: ");
+                string username = Console.ReadLine() ?? string.Empty;
+
+                Console.Write("Enter Admin Password: ");
+                string password = Console.ReadLine() ?? String.Empty;
+
+                if(Validations.AdminAuth(username, password))
+                {
+                    Console.WriteLine("AdminMenu login successful");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Credential! try again");
+                }
+            };
+
             while(true)
             {
                 Console.WriteLine("\nAdmin Menu\n");
@@ -42,7 +62,7 @@ namespace ZooManagement.Presentation.Pages
                         break;
                     
                     case(4): 
-                        setDiscountMenu();
+                        setDiscountMenu(discountService);
                         break;
                     
                     case(5):
@@ -304,7 +324,7 @@ namespace ZooManagement.Presentation.Pages
             }
         }
 
-        public static void setDiscountMenu()
+        public static void setDiscountMenu(IDiscountService? discountService)
         {
             while(true)
             {
@@ -312,7 +332,8 @@ namespace ZooManagement.Presentation.Pages
                 Console.WriteLine("1. Add Discount");
                 Console.WriteLine("2. Modify Discount");
                 Console.WriteLine("3. Remove Discount");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Show Discount");
+                Console.WriteLine("5. Exit");
 
                 Console.Write("Enter your choice : ");
                 int choice = Convert.ToInt32(Console.ReadLine());
@@ -320,18 +341,100 @@ namespace ZooManagement.Presentation.Pages
                 switch (choice)
                 {
                     case(1): 
-                        Console.WriteLine("Add Discount");
+                        if(discountService != null)
+                        {
+                            Console.Write("Enter the Category : ");
+                            string category = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter the Percentage : ");
+                            int percentage = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            Console.Write("Enter the Code : ");
+                            string code = Console.ReadLine() ?? string.Empty;
+
+                            var discount = new DiscountDto
+                            {
+                                Category = category,
+                                Percentage = percentage,
+                                Code = code
+                            };
+                            discountService.AddDiscount(discount);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Discount service is not available.");
+                        }
                         break;
                     
                     case(2):
-                        Console.WriteLine("Modify Discount");
+                        if(discountService != null)
+                        {
+                            Console.Write("Enter the discount id : ");
+                            int id = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            Console.Write("Enter Discount Category : ");
+                            string category = Console.ReadLine() ?? string.Empty;
+
+                            Console.Write("Enter Discount Percentage : ");
+                            int percentage = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            Console.Write("Enter Discount Code : ");
+                            string code = Console.ReadLine() ?? string.Empty;
+
+                            var discountDto = new DiscountDto
+                            {
+                                Id = id,
+                                Category = category,
+                                Percentage = percentage,
+                                Code = code
+                            };
+
+                            discountService.UpdateDiscount(discountDto);
+                            Console.WriteLine("Discount Updated..✅");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Service is not available");
+                        }
                         break;
 
                     case(3):
-                        Console.WriteLine("Remove Discount");
+                        if(discountService != null)
+                        {
+                            Console.Write("Enter the Id : ");
+                            int id = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+                            if(id > 0)
+                            {
+                                discountService?.DeleteDiscount(id);
+                                Console.WriteLine("Discount Deleted..✅");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("discount Service is not available.");
+                        }
                         break;
                     
                     case(4):
+                        if(discountService != null)
+                        {
+                            var discounts = discountService.GetDiscounts();
+
+                            Console.WriteLine("--------Discounts----------");
+
+                            foreach(var discount in discounts)
+                            {
+                                Console.WriteLine($"{discount.Id} - {discount.Category} - {discount.Percentage}% - {discount.Code}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Discount Service is not available");
+                        }
+                        break;
+                    
+                    case(5):
                         return;
                     
                     default:

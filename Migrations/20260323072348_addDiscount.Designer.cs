@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooManagement.DAL.Data;
 
@@ -10,9 +11,11 @@ using ZooManagement.DAL.Data;
 namespace zoo_management_practice.Migrations
 {
     [DbContext(typeof(ZooDbContext))]
-    partial class ZooDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260323072348_addDiscount")]
+    partial class addDiscount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,14 +104,8 @@ namespace zoo_management_practice.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Membership")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

@@ -4,8 +4,8 @@ namespace ZooManagement.DAL.Entities
 {
     public class Feedback
     {
-        public int id { get; set; }
-        public required string content {  get; set; }
+        public int Id { get; set; }
+        public required string Content {  get; set; }
         public int VisitorId { get; set; }
     }
 }

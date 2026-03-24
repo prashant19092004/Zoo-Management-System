@@ -22,17 +22,23 @@ namespace ZooManagement
 
             services.AddScoped<IAnimalRepository, AnimalRepository>();
             services.AddScoped<IAttractionRepository, AttractionRepository>();
+            services.AddScoped<IDiscountRepository, DiscountRepository>();
+            services.AddScoped<IVisitorRepository, VisitorRepository>();
 
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IAttractionService, AttractionService>();
+            services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<IVisitorService, VisitorService>();
 
             var provider = services.BuildServiceProvider();
 
             var animalService = provider.GetService<IAnimalService>();
             var AttractionService = provider.GetService<IAttractionService>();
+            var DiscountService = provider.GetService<IDiscountService>();
+            var VisitorService = provider.GetService<IVisitorService>();
             
 
-            Home.HomePage(animalService, AttractionService);
+            Home.HomePage(animalService, AttractionService, DiscountService, VisitorService);
         }       
     }
 }
