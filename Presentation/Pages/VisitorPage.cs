@@ -12,7 +12,7 @@ namespace ZooManagement.Presentation.Pages
     public static class VisitorPage
     {
 
-        public static void VisitorMenu(IVisitorService? visitorService, IAttractionService? attractionService, IAnimalService? animalService)
+        public static void VisitorMenu(IVisitorService? visitorService, IAttractionService? attractionService, IAnimalService? animalService, ITicketService? ticketService)
         {
             while(true)
             {
@@ -85,7 +85,7 @@ namespace ZooManagement.Presentation.Pages
                                 {
                                     Console.WriteLine("User login successful✅");
                                     Data.CurrrentUser = visitor.Id;
-                                    VisitorMainMenu(visitorService, attractionService, animalService);
+                                    VisitorMainMenu(visitorService, attractionService, animalService, ticketService);
                                     status = false;
                                 }
                                 else
@@ -111,7 +111,7 @@ namespace ZooManagement.Presentation.Pages
             }
         }
     
-        public static void VisitorMainMenu(IVisitorService? visitorService, IAttractionService? attractionService, IAnimalService? animalService)
+        public static void VisitorMainMenu(IVisitorService? visitorService, IAttractionService? attractionService, IAnimalService? animalService, ITicketService? ticketService)
         {
             while(true)
             {
@@ -192,7 +192,7 @@ namespace ZooManagement.Presentation.Pages
                         break;
 
                     case(3):
-                        Console.WriteLine("Buy Ticket");
+                        BuyTicket(attractionService, visitorService, ticketService);
                         break;
                     
                     case(4): 
@@ -310,9 +310,57 @@ namespace ZooManagement.Presentation.Pages
             else
             {
                 Console.WriteLine("Something Went wrong");
+            }  
+        }
+
+        public static void BuyTicket(IAttractionService? attractionService, IVisitorService? visitorService, ITicketService? ticketService)
+        {
+            List<AttractionDto> attractions;
+            if(attractionService != null)
+            {
+                attractions = attractionService.GetAttractions();
+            }
+            else
+            {
+                Console.WriteLine("Service is not available");
+                return;
             }
 
-            
+            VisitorDto? visitor = visitorService?.GetVisitor(Data.CurrrentUser);
+            while(true)
+            {
+                Console.WriteLine("\nSelect an Attraction to Buy a Ticket:");
+                for(int i=0; i<attractions.Count; i++)
+                {
+                    Console.WriteLine($"{i+1}. {attractions[i].Name} (₹{attractions[i].Price})");
+                }
+                Console.WriteLine($"{attractions.Count+1}. Exit");
+
+                Console.Write("Enter your choice : ");
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+                if(choice > 0 && choice <= attractions.Count)
+                {
+                    if(attractions[choice-1].Price <= visitor?.Balance)
+                    {
+                        ticketService?.BuyTicket(visitor.Id, attractions[choice-1].Id);
+                        Console.WriteLine($"The ticket for {attractions[choice-1].Name} was purchased successfully. Your balance is now ₹{visitor?.Balance - attractions[choice-1].Price}.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Insufficient Balance");
+                    }
+                    
+                    return;
+                }else if (choice == attractions.Count+1)
+                {
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Choice");
+                }
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ZooManagement.DAL.Interfaces
     {
         void Register(Visitor visitor);
         Visitor? Login(string email, string password);
-        Visitor? GetById(int id);
+        Visitor? GetById(int? id);
         bool BuyMembership(Memberships type, int id);
     }
 }

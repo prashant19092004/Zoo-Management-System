@@ -51,7 +51,7 @@ namespace ZooManagement.BAL.Services
                 Password = visitor.Password
             }; 
         }
-        public VisitorDto? GetVisitor(int id)
+        public VisitorDto? GetVisitor(int? id)
         {
             var visitor = _repository.GetById(id);
 

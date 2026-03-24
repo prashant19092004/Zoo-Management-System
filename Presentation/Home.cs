@@ -10,7 +10,7 @@ namespace ZooManagement.Presentation
 {
     public static class Home
     {
-        public static void HomePage(IAnimalService? animalService, IAttractionService? attractionService, IDiscountService? discountService, IVisitorService? visitorService)
+        public static void HomePage(IAnimalService? animalService, IAttractionService? attractionService, IDiscountService? discountService, IVisitorService? visitorService, ITicketService ticketService)
         {
             while(true)
             {
@@ -29,7 +29,7 @@ namespace ZooManagement.Presentation
                         break;
                     
                     case(2):
-                        VisitorPage.VisitorMenu(visitorService, attractionService, animalService);
+                        VisitorPage.VisitorMenu(visitorService, attractionService, animalService, ticketService);
                         Console.WriteLine("visitor login");
                         break;
 

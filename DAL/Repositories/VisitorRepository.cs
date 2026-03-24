@@ -36,7 +36,7 @@ namespace ZooManagement.DAL.Repositories
             return null;
         }
 
-        public Visitor? GetById(int id)
+        public Visitor? GetById(int? id)
         {
             var visitorQuery = from n in _context.Visitors
                                 where n.Id == id

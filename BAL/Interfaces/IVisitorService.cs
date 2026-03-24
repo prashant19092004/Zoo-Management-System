@@ -7,7 +7,7 @@ namespace ZooManagement.BAL.Interfaces
     {
         void RegisterVisitor(VisitorDto visitorDto);
         VisitorDto? LoginVisitor(string email, string password);
-        VisitorDto? GetVisitor(int id);
+        VisitorDto? GetVisitor(int? id);
         bool BuyMembership(Memberships type, int id);
     }
 }

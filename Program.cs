@@ -24,11 +24,13 @@ namespace ZooManagement
             services.AddScoped<IAttractionRepository, AttractionRepository>();
             services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddScoped<IVisitorRepository, VisitorRepository>();
+            services.AddScoped<ITicketRepository, TicketReposity>();
 
             services.AddScoped<IAnimalService, AnimalService>();
             services.AddScoped<IAttractionService, AttractionService>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IVisitorService, VisitorService>();
+            services.AddScoped<ITicketService, TicketService>();
 
             var provider = services.BuildServiceProvider();
 
@@ -36,9 +38,10 @@ namespace ZooManagement
             var AttractionService = provider.GetService<IAttractionService>();
             var DiscountService = provider.GetService<IDiscountService>();
             var VisitorService = provider.GetService<IVisitorService>();
+            var ticketService = provider.GetService<ITicketService>();
             
 
-            Home.HomePage(animalService, AttractionService, DiscountService, VisitorService);
+            Home.HomePage(animalService, AttractionService, DiscountService, VisitorService, ticketService);
         }       
     }
 }
